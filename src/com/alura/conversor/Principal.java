@@ -1,11 +1,22 @@
 package com.alura.conversor;
 
 public class Principal {
-    public static void main(String[] args) throws Exception {
+
+    private static final String API_KEY = "TU_API_KEY";
+
+    public static void main(String[] args) {
 
         ConsultaApi consulta = new ConsultaApi();
 
-        String url = "https://v6.exchangerate-api.com/v6/TU_API_KEY/pair/USD/ARS";
+        Moneda origen = Menu.elegirMoneda("Seleccione la moneda de origen:");
+        Moneda destino = Menu.elegirMoneda("Seleccione la moneda de destino:");
+
+        String url = "https://v6.exchangerate-api.com/v6/"
+                + API_KEY
+                + "/pair/"
+                + origen.getCodigo()
+                + "/"
+                + destino.getCodigo();
 
         double tasa = consulta.obtenerTasa(url);
 
