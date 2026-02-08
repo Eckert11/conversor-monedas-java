@@ -6,8 +6,9 @@ public class Principal {
         ConsultaApi consulta = new ConsultaApi();
 
         String url = "https://v6.exchangerate-api.com/v6/TU_API_KEY/pair/USD/ARS";
-        String json = consulta.obtenerDatos(url);
 
-        System.out.println(json);
+        double tasa = consulta.obtenerTasa(url);
+
+        System.out.println("Tasa de conversión: " + tasa);
     }
 }

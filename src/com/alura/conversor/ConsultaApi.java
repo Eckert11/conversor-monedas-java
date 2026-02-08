@@ -1,5 +1,9 @@
 package com.alura.conversor;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -7,7 +11,7 @@ import java.net.http.HttpResponse;
 
 public class ConsultaApi {
 
-    public String obtenerDatos(String url) {
+    public double obtenerTasa(String url) {
 
         try {
             // Cliente HTTP
@@ -30,11 +34,15 @@ public class ConsultaApi {
                 throw new RuntimeException("Error en la solicitud: " + response.statusCode());
             }
 
-            // Devolver JSON
-            return response.body();
+            // Parseo del JSON
+            JsonElement elemento = JsonParser.parseString(response.body());
+            JsonObject jsonObject = elemento.getAsJsonObject();
+
+            // Extracción del dato clave
+            return jsonObject.get("conversion_rate").getAsDouble();
 
         } catch (Exception e) {
-            throw new RuntimeException("No se pudo obtener la respuesta de la API", e);
+            throw new RuntimeException("Error al procesar la respuesta JSON", e);
         }
     }
 }
