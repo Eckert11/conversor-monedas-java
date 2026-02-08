@@ -19,4 +19,12 @@ public class Menu {
 
         return Moneda.valueOf(opcion);
     }
+
+    public static double ingresarMonto() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el monto a convertir: ");
+        return scanner.nextDouble();
+    }
+
 }
